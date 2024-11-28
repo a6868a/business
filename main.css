@@ -6,6 +6,7 @@
     --primary-color: #0044cc;
     --secondary-color: #f1f1f1;
     --accent-color: #ff6600;
+    --accent-color-dark: #cc5200; /* 較深的強調色 */
     --text-color: #333;
     --background-color: #f9f9f9;
     --header-footer-bg: #0044cc;
@@ -42,29 +43,27 @@ header p {
 }
 
 .hero {
-    position: relative;
     background-color: var(--secondary-color);
     padding: 40px 20px;
     text-align: center;
 }
 
-.hero-image {
-    width: 100%;
-    height: auto;
-    opacity: 0.8;
-}
-
 .hero h2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.7);
+    display: inline-block;
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 1.8rem;
     color: #333;
     font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .content {
@@ -113,17 +112,24 @@ footer {
     margin-top: 20px;
 }
 
+footer .socials {
+    margin-top: 10px;
+}
+
 footer .socials a {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     color: var(--header-footer-text);
     text-decoration: none;
     margin: 0 10px;
     font-size: 1.1rem;
+    position: relative;
 }
 
-footer .socials a i {
-    margin-right: 5px;
+footer .socials a:not(:last-child)::after {
+    content: "|";
+    position: absolute;
+    right: -15px;
+    color: var(--header-footer-text);
 }
 
 footer .socials a:hover {
@@ -137,7 +143,7 @@ a {
 
 a:hover {
     text-decoration: underline;
-    color: darken(var(--accent-color), 10%);
+    color: var(--accent-color-dark);
 }
 
 @media (max-width: 600px) {
