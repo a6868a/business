@@ -6,7 +6,7 @@
     --primary-color: #0044cc;
     --secondary-color: #f1f1f1;
     --accent-color: #ff6600;
-    --accent-color-dark: #cc5200; /* 較深的強調色 */
+    --accent-color-dark: #cc5200;
     --text-color: #333;
     --background-color: #f9f9f9;
     --header-footer-bg: #0044cc;
@@ -146,17 +146,41 @@ a:hover {
     color: var(--accent-color-dark);
 }
 
+/* 響應式調整 */
 @media (max-width: 600px) {
     header h1 {
         font-size: 2rem;
     }
 
     .hero h2 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        padding: 5px 10px;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
     }
 
     .content {
+        max-width: 90%;
         padding: 15px;
+        margin: 10px auto;
+    }
+
+    .content h3 {
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    .content p, .content ul, .content ol {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    blockquote {
+        padding: 10px;
+        margin: 15px auto;
+        font-size: 0.9rem;
     }
 
     footer .socials a {
