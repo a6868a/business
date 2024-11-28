@@ -1,23 +1,39 @@
+/* 引入Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* CSS變量 */
+:root {
+    --primary-color: #0044cc;
+    --secondary-color: #f1f1f1;
+    --accent-color: #ff6600;
+    --text-color: #333;
+    --background-color: #f9f9f9;
+    --header-footer-bg: #0044cc;
+    --header-footer-text: #ffffff;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* 基本樣式 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    color: #333;
-    background-color: #f9f9f9;
+    color: var(--text-color);
+    background-color: var(--background-color);
 }
 
 header {
-    background-color: #0044cc;
-    color: white;
+    background-color: var(--header-footer-bg);
+    color: var(--header-footer-text);
     text-align: center;
     padding: 20px 0;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    font-weight: 700;
 }
 
 header p {
@@ -26,58 +42,118 @@ header p {
 }
 
 .hero {
-    background-color: #f1f1f1;
-    padding: 20px;
+    position: relative;
+    background-color: var(--secondary-color);
+    padding: 40px 20px;
     text-align: center;
 }
 
+.hero-image {
+    width: 100%;
+    height: auto;
+    opacity: 0.8;
+}
+
 .hero h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: 5px;
     font-size: 1.8rem;
     color: #333;
-    margin: 0;
+    font-weight: 700;
 }
 
 .content {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+    padding: 30px;
+    max-width: 900px;
+    margin: 20px auto;
     background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
 }
 
 .content h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-top: 20px;
+    font-weight: 700;
 }
 
-.content ul,
-.content ol {
+.content p, .content ul, .content ol {
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.content ul, .content ol {
     margin: 10px 0;
     padding-left: 20px;
 }
 
+.content li {
+    margin-bottom: 10px;
+}
+
 blockquote {
     background-color: #eee;
-    padding: 10px;
+    padding: 15px 20px;
     font-style: italic;
-    border-left: 4px solid #0044cc;
+    border-left: 4px solid var(--primary-color);
     margin: 20px 0;
+    border-radius: 5px;
 }
 
 footer {
-    background-color: #333;
-    color: white;
+    background-color: var(--header-footer-bg);
+    color: var(--header-footer-text);
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
     margin-top: 20px;
 }
 
 footer .socials a {
-    color: white;
+    display: inline-flex;
+    align-items: center;
+    color: var(--header-footer-text);
     text-decoration: none;
     margin: 0 10px;
+    font-size: 1.1rem;
+}
+
+footer .socials a i {
+    margin-right: 5px;
 }
 
 footer .socials a:hover {
+    color: var(--accent-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
     text-decoration: underline;
+    color: darken(var(--accent-color), 10%);
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    footer .socials a {
+        font-size: 1rem;
+    }
 }
