@@ -1,159 +1,80 @@
-/* 引入Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-/* CSS變量 */
-:root {
-    --primary-color: #0044cc;
-    --secondary-color: #f1f1f1;
-    --accent-color: #ff6600;
-    --text-color: #333;
-    --background-color: #f9f9f9;
-    --header-footer-bg: #0044cc;
-    --header-footer-text: #ffffff;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* 基本樣式 */
+/* 全局樣式 */
 body {
-    font-family: 'Roboto', Arial, sans-serif;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    background-color: #f8f9fa;
 }
 
+/* 頂部區域樣式 */
 header {
-    background-color: var(--header-footer-bg);
-    color: var(--header-footer-text);
+    background-color: #004d7a;
+    color: white;
+    padding: 1rem;
     text-align: center;
-    padding: 20px 0;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.8rem;
-    font-weight: 700;
-}
-
-header p {
-    margin: 5px 0 0;
-    font-size: 1rem;
-}
-
+/* 主要內容樣式 */
 .hero {
-    position: relative;
-    background-color: var(--secondary-color);
-    padding: 40px 20px;
+    background-color: #ffffff;
+    padding: 2rem 1rem;
     text-align: center;
-}
-
-.hero-image {
-    width: 100%;
-    height: auto;
-    opacity: 0.8;
 }
 
 .hero h2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.7);
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.8rem;
-    color: #333;
-    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.5;
+    color: #004d7a;
 }
 
+.hero p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 內容區域樣式 */
 .content {
-    padding: 30px;
-    max-width: 900px;
-    margin: 20px auto;
-    background: white;
-    box-shadow: var(--box-shadow);
-    border-radius: 10px;
+    padding: 2rem 1rem;
 }
 
 .content h3 {
-    font-size: 1.6rem;
-    margin-top: 20px;
-    font-weight: 700;
+    font-size: 1.5rem;
+    color: #004d7a;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.content p, .content ul, .content ol {
+.content p {
+    margin: 1rem 0;
+    line-height: 1.6;
     font-size: 1rem;
-    line-height: 1.8;
+    color: #333;
 }
 
-.content ul, .content ol {
-    margin: 10px 0;
-    padding-left: 20px;
-}
-
-.content li {
-    margin-bottom: 10px;
-}
-
-blockquote {
-    background-color: #eee;
-    padding: 15px 20px;
-    font-style: italic;
-    border-left: 4px solid var(--primary-color);
-    margin: 20px 0;
-    border-radius: 5px;
-}
-
+/* 頁腳樣式 */
 footer {
-    background-color: var(--header-footer-bg);
-    color: var(--header-footer-text);
     text-align: center;
-    padding: 20px 0;
-    margin-top: 20px;
+    padding: 1rem;
+    background-color: #00334e;
+    color: white;
 }
 
-footer .socials a {
-    display: inline-flex;
-    align-items: center;
-    color: var(--header-footer-text);
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 1.1rem;
-}
-
-footer .socials a i {
-    margin-right: 5px;
-}
-
-footer .socials a:hover {
-    color: var(--accent-color);
-}
-
-a {
-    color: var(--accent-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: darken(var(--accent-color), 10%);
-}
-
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 2rem;
-    }
-
+/* 響應式設計（針對小螢幕） */
+@media (max-width: 768px) {
     .hero h2 {
         font-size: 1.5rem;
     }
 
-    .content {
-        padding: 15px;
+    .hero p {
+        font-size: 0.9rem;
     }
 
-    footer .socials a {
-        font-size: 1rem;
+    .content h3 {
+        font-size: 1.2rem;
+    }
+
+    .content p {
+        font-size: 0.9rem;
     }
 }
