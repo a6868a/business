@@ -136,14 +136,19 @@ footer .socials a:hover {
     color: var(--accent-color);
 }
 
-a {
-    color: var(--accent-color);
-    text-decoration: none;
+a, .btn {
+    background: linear-gradient(90deg, #ff6600, #0044cc, #ff6600);
+    background-size: 200% 200%;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    transition: background-position 0.5s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
-a:hover {
-    text-decoration: underline;
-    color: var(--accent-color-dark);
+a:hover, .btn:hover {
+    background-position: right center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    color: #fff;
 }
 
 /* 響應式調整 */
