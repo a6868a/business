@@ -1111,4 +1111,266 @@ if __name__ == "__main__":
         tree.inorder(tree.root)
         print("\n" + "-"*40)
 
+#-------------------------------------------------
+class MaxHeap:
+    def __init__(self, initial_data=None):
+        """Initialize the MaxHeap. If initial_data is provided, build the heap."""
+        # The heap list stores elements as [candidate_name, support_value]
+        self.heap = []
+        # A dictionary to map candidate names to their index in the heap list
+        self.position = {}
+        if initial_data:
+            self.build_heap(initial_data)
+
+    def build_heap(self, data_list):
+        """Build the heap from a list of (candidate_name, support_value) tuples."""
+        self.heap = []
+        self.position = {}
+        # Insert all elements into heap list and record their positions
+        for name, support in data_list:
+            self.heap.append([name, support])
+            self.position[name] = len(self.heap) - 1
+        # Heapify process: call _heapify_down on all non-leaf nodes
+        n = len(self.heap)
+        for index in reversed(range(n // 2)):
+            self._heapify_down(index)
+
+    def insert_or_update(self, name, support):
+        """Insert a new candidate or update the support of an existing one."""
+        if name in self.position:
+            # Update existing candidate's support and adjust heap
+            index = self.position[name]
+            old_support = self.heap[index][1]
+            self.heap[index][1] = support
+            # Decide whether to sift up or down based on new support
+            if support > old_support:
+                self._heapify_up(index)
+            else:
+                self._heapify_down(index)
+        else:
+            # Insert new candidate
+            self.heap.append([name, support])
+            index = len(self.heap) - 1
+            self.position[name] = index
+            self._heapify_up(index)
+
+    def get_top(self):
+        """Return the candidate with the highest support without removing it."""
+        if not self.heap:
+            return None
+        name, support = self.heap[0]
+        return name, support
+
+    def pop_top(self):
+        """Remove and return the candidate with the highest support."""
+        if not self.heap:
+            return None
+        top_node = self.heap[0]
+        last_node = self.heap.pop()
+        del self.position[top_node[0]]
+        if self.heap:
+            # Move last node to root and heapify down
+            self.heap[0] = last_node
+            self.position[last_node[0]] = 0
+            self._heapify_down(0)
+        return top_node
+
+    def display_heap(self):
+        """Return the current heap array (level-order representation)."""
+        # Return a list of tuples for readability
+        return [(name, support) for name, support in self.heap]
+
+    def get_sorted_candidates(self):
+        """Return a list of all candidates sorted by support (highest first) without modifying the original heap."""
+        # Copy heap elements locally and sort by support descending
+        return sorted(self.heap, key=lambda x: x[1], reverse=True)
+
+    def _heapify_up(self, index):
+        """Maintain heap property by moving the node at index up as needed."""
+        while index > 0:
+            parent_index = (index - 1) // 2
+            # Compare support values: if child > parent, swap
+            if self.heap[index][1] > self.heap[parent_index][1]:
+                self._swap(index, parent_index)
+                index = parent_index
+            else:
+                break
+
+    def _heapify_down(self, index):
+        """Maintain heap property by moving the node at index down as needed."""
+        n = len(self.heap)
+        while True:
+            left = 2 * index + 1
+            right = 2 * index + 2
+            largest = index
+
+            # Check if left child exists and is greater than current largest
+            if left < n and self.heap[left][1] > self.heap[largest][1]:
+                largest = left
+            # Check if right child exists and is greater than current largest
+            if right < n and self.heap[right][1] > self.heap[largest][1]:
+                largest = right
+            if largest != index:
+                self._swap(index, largest)
+                index = largest
+            else:
+                break
+
+    def _swap(self, i, j):
+        """Swap two nodes in the heap and update their positions."""
+        self.position[self.heap[i][0]], self.position[self.heap[j][0]] = j, i
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+
+if __name__ == "__main__":
+    # Example usage: simulate a five-person primary election
+    # Initial candidates with their support values
+    initial_candidates = [
+        ("Alice", 250),
+        ("Bob", 300),
+        ("Charlie", 150),
+        ("Diana", 280),
+        ("Ethan", 200)
+    ]
+
+    # Create a MaxHeap with initial data
+    heap = MaxHeap(initial_candidates)
+
+    # Display the heap structure after building
+    print("Initial heap (level-order):", heap.display_heap())
+
+    # Show current ranking of candidates by support
+    print("Current ranking:", heap.get_sorted_candidates())
+
+    # Insert a new candidate
+    heap.insert_or_update("Fiona", 270)
+    print("After inserting Fiona:", heap.display_heap())
+
+    # Update an existing candidate's support
+    heap.insert_or_update("Charlie", 320)
+    print("After updating Charlie's support to 320:", heap.display_heap())
+
+    # Get the candidate most likely to win
+    top_candidate = heap.get_top()
+    print("Current top candidate:", top_candidate)
+
+    # Simulate support fluctuation: Bob's support drops
+    heap.insert_or_update("Bob", 180)
+    print("After Bob's support drops to 180:", heap.display_heap())
+
+    # Pop the top candidate (e.g., declare winner)
+    winner = heap.pop_top()
+    print("Winner:", winner)
+    print("Heap after popping top:", heap.display_heap())
+
+#---------------------------------------------------------
+# Node class for BST
+class Node:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+        self.left = None
+        self.right = None
+
+# Function to insert a new node into BST
+def insert(root, name, score):
+    """
+    Insert a node with given name and score into BST.
+    The BST is ordered by score.
+    """
+    if root is None:
+        return Node(name, score)
+    if score < root.score:
+        root.left = insert(root.left, name, score)
+    else:
+        root.right = insert(root.right, name, score)
+    return root
+
+# Function to find the node with minimum score in BST (used in deletion)
+def find_min(node):
+    """
+    Find the node with minimum score in BST.
+    """
+    current = node
+    while current.left is not None:
+        current = current.left
+    return current
+
+# Function to delete a node by score
+def delete_node(root, score):
+    """
+    Delete the node with given score from BST.
+    """
+    if root is None:
+        return None
+    if score < root.score:
+        root.left = delete_node(root.left, score)
+    elif score > root.score:
+        root.right = delete_node(root.right, score)
+    else:
+        # Node to be deleted found
+        # Case 1: No child or one child
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.left
+        # Case 2: Two children: get inorder successor (smallest in right subtree)
+        temp = find_min(root.right)
+        # Copy the inorder successor's content to this node
+        root.name = temp.name
+        root.score = temp.score
+        # Delete the inorder successor
+        root.right = delete_node(root.right, temp.score)
+    return root
+
+# Function to print BST structure in text (sideways)
+def print_tree(node, level=0):
+    """
+    Print the BST structure in a sideways textual format.
+    Right subtree is printed above and left subtree below with indentation.
+    """
+    if node is not None:
+        # Print right subtree
+        print_tree(node.right, level + 1)
+        # Print current node with indentation
+        print('    ' * level + f'({node.name}, {node.score})')
+        # Print left subtree
+        print_tree(node.left, level + 1)
+
+# Main code
+if __name__ == "__main__":
+    # Insert 7 student records (name, score)
+    student_data = [
+        ("Alice", 85),
+        ("Bob", 92),
+        ("Charlie", 78),
+        ("Diana", 90),
+        ("Eve", 88),
+        ("Frank", 95),
+        ("Grace", 80)
+    ]
+
+    root = None
+    # Build the BST with student data
+    for name, score in student_data:
+        root = insert(root, name, score)
+
+    # Insert an extra data with your own seat number
+    # Replace the value of my_seat_number with your actual seat number
+    my_seat_number = 15
+    root = insert(root, "MySeat", my_seat_number)
+
+    # Print the original BST structure
+    print("Original BST:")
+    print_tree(root)
+
+    # Delete a node (e.g., delete the node with score 92)
+    root = delete_node(root, 92)
+
+    # Print the BST structure after deletion
+    print("\nBST after deleting node with score 92:")
+    print_tree(root)
+
+#------------------------------------------
+
 
